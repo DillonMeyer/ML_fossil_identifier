@@ -14,7 +14,7 @@ app = FastAPI()
 # 👇 Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ml-fossil-identifier.vercel.app/"],
+    allow_origins = ["https://fossils.djmlabs.xyz"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
