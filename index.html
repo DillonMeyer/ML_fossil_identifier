@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  
+  <head>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="font-style.css">
+    <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <title>Fossil Classifier</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
-    input, button { margin-top: 1rem; display: block; }
-  </style>
 </head>
-<body>
-  <h1>Fossil Classifier</h1>
-  <input type="file" id="imageInput" accept="image/*">
-  <button onclick="uploadImage()">Classify</button>
 
-  <div id="result" style="margin-top: 2rem;"></div>
+<body class="ubuntu-regular">
+  <div id="container">
 
-  <script>
-    async function uploadImage() {
-      const fileInput = document.getElementById("imageInput");
-      const file = fileInput.files[0];
-      if (!file) return alert("Please select an image.");
+    <h1>Fossil Classifier</h1>
 
-      const formData = new FormData();
-      formData.append("file", file);
+    <p id="randomIntro"></p>
 
-      const response = await fetch("http://localhost:8000/predict", {
-        method: "POST",
-        body: formData
-      });
+    <div class="file-up-wrapper">
 
-      const data = await response.json();
-      document.getElementById("result").innerHTML = `
-        <p><strong>Prediction:</strong> ${data.prediction}</p>
-        <p><strong>Confidence:</strong> ${(data.confidence * 100).toFixed(2)}%</p>
-      `;
-    }
-  </script>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-up-icon lucide-file-up">
+        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+        <path d="M12 12v6" />
+        <path d="m15 15-3-3-3 3" />
+      </svg>
+
+    </div>
+
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+
+    <div id="result" style="margin-top: 2rem;"></div>
+
+  </div>
+  <script src="main.js"></script>
 </body>
 </html>

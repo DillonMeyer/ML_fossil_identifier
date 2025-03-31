@@ -3,7 +3,7 @@
 
 from fastapi import FastAPI, File, UploadFile
 from fastai.vision.all import *
-from fastapi.middleware.cors import CORSMiddleware  # 👈 add this
+from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 from PIL import Image
 import urllib.request
@@ -39,3 +39,8 @@ async def predict(file: UploadFile = File(...)):
         "prediction": str(pred_class),
         "confidence": float(probs[pred_idx])
     }
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
