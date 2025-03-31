@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fossil Classifier</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, button { margin-top: 1rem; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Fossil Classifier</h1>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="uploadImage()">Classify</button>
+
+  <div id="result" style="margin-top: 2rem;"></div>
+
+  <script>
+    async function uploadImage() {
+      const fileInput = document.getElementById("imageInput");
+      const file = fileInput.files[0];
+      if (!file) return alert("Please select an image.");
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      document.getElementById("result").innerHTML = `
+        <p><strong>Prediction:</strong> ${data.prediction}</p>
+        <p><strong>Confidence:</strong> ${(data.confidence * 100).toFixed(2)}%</p>
+      `;
+    }
+  </script>
+</body>
+</html>
