@@ -1,5 +1,5 @@
 # app.py
-# start command: uvicorn app:app --host 0.0.0.0 --port 80
+# start command: uvicorn app:app --host 0.0.0.0 --port 10000
 
 from fastapi import FastAPI, File, UploadFile
 from fastai.vision.all import *
