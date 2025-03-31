@@ -39,7 +39,7 @@ const body = document.body;
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("https://ml-fossil-identifier.onrender.com/predict", {
+      const response = await fetch("http://146.190.214.133/predict", {
         method: "POST",
         body: formData
       });

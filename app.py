@@ -1,22 +1,12 @@
 # app.py
-# start command: uvicorn app:app --reload
+# start command: uvicorn app:app --host 0.0.0.0 --port 80
 
 from fastapi import FastAPI, File, UploadFile
 from fastai.vision.all import *
 from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 from PIL import Image
-import urllib.request
 import os
-
-# 🔽 Download model if not present
-MODEL_URL = "https://www.dropbox.com/scl/fi/q1151resw8zt4ko9wlcnk/model.pkl?rlkey=sx9dupg7kh1su43rmld4herkh&st=exfe3aam&dl=1"
-MODEL_PATH = "model.pkl"
-
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model...")
-    urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
-    print("Model downloaded.")
 
 learn = load_learner("model.pkl")
 app = FastAPI()
@@ -24,7 +14,7 @@ app = FastAPI()
 # 👇 Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # or specify ["http://localhost:5500"] for stricter security
+    allow_origins=["https://ml-fossil-identifier.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,8 +29,3 @@ async def predict(file: UploadFile = File(...)):
         "prediction": str(pred_class),
         "confidence": float(probs[pred_idx])
     }
-
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", 10000))
-    uvicorn.run("app:app", host="0.0.0.0", port=port)
