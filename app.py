@@ -26,3 +26,5 @@ async def predict(file: UploadFile = File(...)):
         "prediction": str(pred_class),
         "confidence": float(probs[pred_idx])
     }
+
+# start command: uvicorn app:app --reload
