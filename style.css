@@ -18,15 +18,31 @@ html {
     position: relative;
   }
 
-  .lucide-file-up {}
+  .lucide-file-up {
+      width: 33vw;
+      height: 33vw;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .lucide-file-up:hover {
+        animation: rotate 0.5s linear forwards;
+    }
+    
+    .scale {
+        transition: all 3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .scale:hover {
+        /* transform: scale(1.25); */
+    }
 
-  .file-up-wrapper {
+  .file-up-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
+    width: 66vw;
+    height: 66vw;
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;
@@ -34,4 +50,19 @@ html {
     align-items: center;
     cursor: pointer;
     flex-direction: column;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(15deg);
+    }
+    75% {
+      transform: rotate(-15deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
